@@ -1,6 +1,8 @@
 package uz.card.card_transfer.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,15 +19,14 @@ import uz.card.card_transfer.service.MyAuthService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan
 public class MySecurity extends WebSecurityConfigurerAdapter {
-    private  final MyAuthService  myAuthService;
-    public final JwtFilter jwtFilter;
+    @Autowired
+    MyAuthService  myAuthService;
+    @Autowired
+    JwtFilter jwtFilter;
 
-    public MySecurity(MyAuthService myAuthService, JwtFilter jwtFilter) {
-        this.myAuthService = myAuthService;
-        this.jwtFilter = jwtFilter;
-    }
+
 
 
     @Override
@@ -43,9 +44,9 @@ public class MySecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
         // bu user servisga kigandan keyin unga token beriladi va bu tokeni requst bilan hedirga keladi shu vaqtd asecuritiy birinchi jwt filtrga boraddi default holda UsernamePasswordAuthenticationFilter shunga boradi
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+           http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         // bu token began vaqtda ssisinoni o'chirib qoyadi jwt tokeni o'chirilgan holda ham session ishlab turadi bu xatoto yani token muddati tugagan bo'lishi mumkin
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
 

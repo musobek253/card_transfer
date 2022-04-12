@@ -12,15 +12,12 @@ import uz.card.card_transfer.security.JwtProvider;
 @RestController
 @RequestMapping("/api")
 public class AuthController {
-
-    private final JwtProvider jwtProvider;
-    private final AuthenticationManager authenticationManager;
-
     @Autowired
-    public AuthController(JwtProvider jwtProvider, AuthenticationManager authenticationManager) {
-        this.jwtProvider = jwtProvider;
-        this.authenticationManager = authenticationManager;
-    }
+     JwtProvider jwtProvider;
+    @Autowired
+     AuthenticationManager authenticationManager;
+
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginTo(@RequestBody LoginDto loginDto) {

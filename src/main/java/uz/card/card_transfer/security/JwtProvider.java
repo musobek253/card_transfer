@@ -11,6 +11,7 @@ public class JwtProvider {
     static long expireTime = 36_000_000;
     static String maxfiy = "MeningbirinchiJwttokengenratsiyaqilishim";
     // bu jwete tokeni username orqali generatsiya qiladi
+
     public String generateToken(String userName){
         return  Jwts
                 .builder()
