@@ -6,13 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
-
-@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-class Outcome {
-
+@Data
+public class Outcome {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
