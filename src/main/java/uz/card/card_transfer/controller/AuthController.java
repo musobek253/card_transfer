@@ -26,7 +26,7 @@ public class AuthController {
             String jwtToken = jwtProvider.generateToken(loginDto.getUsername());
             return ResponseEntity.ok(jwtToken);
         }catch (BadCredentialsException e){
-            return ResponseEntity.status(401).body("Login yoki Paroliz noto'g'ri!");
+            return ResponseEntity.status(401).body("login or password error!");
         }
 
     }
